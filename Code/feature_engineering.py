@@ -23,7 +23,7 @@ def haversine_distance(lat1, lon1, lat2, lon2):
     
     return R * c
 
-def extract_features(city_name, historical_db_path="fused_historical_database.csv"):
+def extract_features(city_name, historical_db_path="Merged_dataset/fused_historical_database.csv"):
     """Fetches live weather, calculates spatial proximity, and builds the feature vector."""
     
     # 1. Fetch Live Weather Data & Coordinates
