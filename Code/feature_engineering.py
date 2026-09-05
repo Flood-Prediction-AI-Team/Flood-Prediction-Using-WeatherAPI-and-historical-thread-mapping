@@ -77,7 +77,7 @@ def extract_features(city_name, historical_db_path="fused_historical_database.cs
     
     return feature_vector
 
-# --- Execution ---
+# --- Execution ----
 if __name__ == "__main__":
     print("Extracting features for test location...")
     test_city = "Patiala"
