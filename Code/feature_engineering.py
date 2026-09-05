@@ -31,7 +31,7 @@ def extract_features(city_name, historical_db_path="Merged_dataset/fused_histori
     response = requests.get(url)
     
     if response.status_code != 200:
-        print(f"Error fetching data for {city_name}.")
+        print(f"API Error {response.status_code}: {response.text}")
         return None
         
     weather_data = response.json()
