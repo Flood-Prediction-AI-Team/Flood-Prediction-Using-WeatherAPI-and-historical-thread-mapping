@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flood-Risk AI Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="navbar">
+        <h1>Flood-Risk AI : Real-Time Prediction Dashboard</h1>
+    </header>
+
+    <main class="container">
+        <!-- Search Section -->
+        <div class="search-section">
+            <input type="text" id="locationInput" placeholder="Enter Location (e.g., Niamey, Niger)...">
+            <button id="searchBtn">SEARCH</button>
+        </div>
+
+        <!-- Metrics Cards Section -->
+        <div class="dashboard-cards">
+            <!-- Card 1 -->
+            <div class="card">
+                <h2>Live Weather (API)</h2>
+                <hr>
+                <p>Temp: <span id="temp">28°C</span></p>
+                <p>Humidity: <span id="humidity">88%</span></p>
+                <p>Wind: <span id="wind">18 km/h</span></p>
+                <p>Rain (48h): <span id="rain">145 mm</span></p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="card">
+                <h2>Historical Threat (DFO)</h2>
+                <hr>
+                <p>Past Floods: <span id="pastFloods">14</span></p>
+                <p>Avg Severity: <span id="avgSeverity">High</span></p>
+                <p>Avg Duration: <span id="avgDuration">11 Days</span></p>
+                <p>Risk Proximity: <span id="proximity">2.1 km</span></p>
+            </div>
+
+            <!-- Card 3 (Prediction) -->
+            <div class="card prediction-card">
+                <h2>ML Risk Prediction</h2>
+                <hr class="red-hr">
+                <h1 class="risk-level high-risk">HIGH RISK</h1>
+                <p class="subtitle">Historical + Weather thresholds met</p>
+            </div>
+        </div>
+
+        <!-- Map Section -->
+        <div class="map-section">
+            <p class="map-text">[ Interactive Geographic Map Rendering Zone ]</p>
+            <p class="map-subtext">Shows searched location and nearby historical flood centroids</p>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
