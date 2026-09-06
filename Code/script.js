@@ -122,8 +122,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Temporary Preview Fallback while OpenWeather activates
-    function triggerFallbackPreview(cityName) {
+    // Temporary Preview Fallback with Real Geocoding
+    async function triggerFallbackPreview(cityName) {
+        let lat = 30.3398; // Default fallback
+        let lon = 76.3869; 
+
+        // Fetch real coordinates using free OpenStreetMap Geocoding
+        try {
+            const geoRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(cityName)}`);
+            const geoData = await geoRes.json();
+            if (geoData && geoData.length > 0) {
+                lat = parseFloat(geoData[0].lat);
+                lon = parseFloat(geoData[0].lon);
+            }
+        } catch (e) {
+            console.warn("Geocoding failed, using default coords.");
+        }
+
         const isHigh = cityName.toLowerCase().includes("niamey") || cityName.toLowerCase().includes("flood");
+        
         const mockData = {
             city: cityName,
             temperature: isHigh ? "29.2°C" : "24.5°C",
@@ -135,9 +152,10 @@ document.addEventListener("DOMContentLoaded", () => {
             casualties: isHigh ? "38 Recorded" : "0 Recorded",
             nearest_flood: isHigh ? "2.1 km" : "142.8 km",
             risk_level: isHigh ? "HIGH RISK" : "LOW RISK",
-            lat: isHigh ? 13.5116 : 30.3398, // Example: Niamey or Patiala coords
-            lon: isHigh ? 2.1254 : 76.3869
+            lat: lat, 
+            lon: lon
         };
+        
         renderResults(mockData);
     }
 
