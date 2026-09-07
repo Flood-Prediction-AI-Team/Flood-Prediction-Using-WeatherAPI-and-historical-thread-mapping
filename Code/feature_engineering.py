@@ -4,6 +4,10 @@ import pandas as pd
 import numpy as np
 from dotenv import load_dotenv
 
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+
 # Load API Key
 load_dotenv()
 API_KEY = os.getenv("WEATHER_API_KEY")
@@ -23,7 +27,7 @@ def haversine_distance(lat1, lon1, lat2, lon2):
     
     return R * c
 
-def extract_features(city_name, historical_db_path="Merged_dataset/fused_historical_database.csv"):
+def extract_features(city_name, historical_db_path=BASE_DIR / "Merged_dataset" / "fused_historical_database.csv"):
     """Fetches live weather, calculates spatial proximity, and builds the feature vector."""
     
     # 1. Fetch Live Weather Data & Coordinates
@@ -80,7 +84,7 @@ def extract_features(city_name, historical_db_path="Merged_dataset/fused_histori
 # --- Execution ----
 if __name__ == "__main__":
     print("Extracting features for test location...")
-    test_city = "Patiala"
+    test_city = "Goa"
     
     final_features = extract_features(test_city)
     
