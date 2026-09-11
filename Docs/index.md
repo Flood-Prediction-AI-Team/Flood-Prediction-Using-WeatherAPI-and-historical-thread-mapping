@@ -1,4 +1,5 @@
-![Tiet Logo](https://raw.githubusercontent.com/Flood-Prediction-AI-Team/Flood-Prediction-Using-WeatherAPI-and-historical-thread-mapping/main/assets/tiet-logo.svg){ .tiet-logo }
+![Tiet Logo](assets/tiet_logo.jpg){ .tiet-logo }
+
 **UCS503: Software Engineering (Project)**  
 **TIET Patiala**
 
