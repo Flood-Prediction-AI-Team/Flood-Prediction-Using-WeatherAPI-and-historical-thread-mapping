@@ -1,0 +1,13 @@
+site_name: Flood Prediction System
+site_url: https://AmitBishnoi2005.github.io/Flood-Prediction-Using-WeatherAPI-and-historical-thread-mapping/
+repo_url: https://github.com/AmitBishnoi2005/Flood-Prediction-Using-WeatherAPI-and-historical-thread-mapping
+
+docs_dir: Docs  # Points to your existing folder!
+
+theme:
+  name: material
+  palette:
+    primary: custom
+
+nav:
+  - Home: index.md
