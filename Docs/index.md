@@ -1,7 +1,4 @@
-![Tiet Logo](assets/tiet_logo.jpg){ .tiet-logo }
-
-**UCS503: Software Engineering (Project)**  
-**TIET Patiala**
+**UCS503: Software Engineering (Project)**  **TIET Patiala**
 
 # Real-Time Flood Risk AI Prediction System
 
