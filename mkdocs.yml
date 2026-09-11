@@ -1,13 +1,72 @@
-site_name: Flood Prediction System
-site_url: https://AmitBishnoi2005.github.io/Flood-Prediction-Using-WeatherAPI-and-historical-thread-mapping/
-repo_url: https://github.com/AmitBishnoi2005/Flood-Prediction-Using-WeatherAPI-and-historical-thread-mapping
+site_name: "Flood Prediction System - Weather API & Threat Mapping"
+site_url: https://Flood-Prediction-AI-Team.github.io/Flood-Prediction-Using-WeatherAPI-and-historical-thread-mapping/
 
-docs_dir: Docs  # Points to your existing folder!
+repo_url: https://github.com/Flood-Prediction-AI-Team/Flood-Prediction-Using-WeatherAPI-and-historical-thread-mapping
+repo_name: Flood-Prediction-AI-Team/Flood-Prediction-Using-WeatherAPI-and-historical-thread-mapping
+
+docs_dir: Docs
 
 theme:
   name: material
+  features:
+    - navigation.footer
+    - header.autohide
+    - content.tabs.link
+    - navigation.tracking
+    - navigation.top
+    - navigation.instant
+    - toc.integrate
+    - content.tooltips
+  icon:
+    repo: fontawesome/brands/github
+    annotation: material/plus-circle-outline
   palette:
-    primary: custom
+    primary: indigo
+    accent: blue
+
+copyright: "Copyright &copy; 2026 Amit Bishnoi, Diksha Garg &bull; UCS503 Software Engineering"
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Flood-Prediction-AI-Team/Flood-Prediction-Using-WeatherAPI-and-historical-thread-mapping
+      name: GitHub Repository
+
+extra_css:
+  - https://unpkg.com/katex@0/dist/katex.min.css
+  - stylesheets/custom.css
+
+extra_javascript:
+  - https://unpkg.com/katex@0/dist/katex.min.js
+
+markdown_extensions:
+  - abbr
+  - md_in_html
+  - attr_list
+  - footnotes
+  - sane_lists
+  - toc:
+      permalink: true
+      toc_depth: 4
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
 
 nav:
   - Home: index.md
