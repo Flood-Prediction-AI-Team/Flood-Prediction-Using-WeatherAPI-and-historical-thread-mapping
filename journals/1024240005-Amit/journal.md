@@ -21,7 +21,7 @@
 - Built a minimal Python script to verify live API ingestion and test rate limits.
 
 ## Week 4 (Aug 24 - Aug 30): UML Use Case Design & Documentation
-- Designed and engineered the standalone **UML Use Case Diagram** using draw.io, mapping out end-user interactions against the system backend and external APIs.
+- Designed and engineered the standalone **UML Use Case Diagram** and **Activity Diagram** using draw.io, mapping out end-user interactions against the system backend and external APIs.
 - Pushed updates to the MkDocs documentation site (`index.md`), detailing the proposed system architecture and pipeline stages.
 - Supported Diksha in refining the Pitch Slide Deck materials.
 
