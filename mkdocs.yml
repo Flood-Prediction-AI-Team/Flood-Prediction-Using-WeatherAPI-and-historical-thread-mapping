@@ -40,6 +40,12 @@ extra_javascript:
   - https://unpkg.com/katex@0/dist/katex.min.js
 
 markdown_extensions:
+  - fenced_code
+  - codehilite
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - toc:
+      permalink: true
   - abbr
   - md_in_html
   - attr_list
