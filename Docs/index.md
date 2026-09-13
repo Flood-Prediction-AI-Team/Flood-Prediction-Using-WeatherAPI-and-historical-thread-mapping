@@ -76,18 +76,19 @@ The Real-Time Flood Risk AI Prediction System bridges this gap by creatively fus
 
 ## Project Structure
 
-```text
+​```text
 .
-├── Code/                          # Source code for the application
-│   ├── Merged_dataset/            # Raw and fused historical CSV datasets
-│   ├── backend.py                 # Flask server and API ingestion logic
-│   ├── feature_engineering.py     # Data fusion and preprocessing scripts
-│   ├── index.html                 # Frontend dashboard
-│   ├── script.js                  # UI logic and Leaflet.js map handling
-│   ├── style.css                  # Responsive UI styling
-│   └── train_model.ipynb          # ML training, data synthesis, and evaluation
-├── Docs/                          # Markdown documentation, built via MkDocs
-│   └── index.md                   # Project homepage
-├── mkdocs.yml                     # Site configuration and theme settings
-├── README.md                      # Standard repository overview
-└── .gitignore                     # Tracks excluded files and /site build outputs
+├── Code/
+│   ├── Merged_dataset/        # Raw and fused historical CSV datasets
+│   ├── backend.py             # Flask server and API ingestion logic
+│   ├── feature_engineering.py # Data fusion and preprocessing scripts
+│   ├── index.html             # Frontend dashboard
+│   ├── script.js              # UI logic and Leaflet.js map handling
+│   ├── style.css              # Responsive UI styling
+│   └── train_model.ipynb      # ML training, data synthesis, and evaluation
+├── Docs/                      # Markdown documentation, built via MkDocs
+│   └── index.md               # Project homepage
+├── mkdocs.yml                  # Site configuration and theme settings
+├── README.md                   # Standard repository overview
+└── .gitignore                  # Tracks excluded files and /site build outputs
+​```
