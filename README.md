@@ -21,7 +21,7 @@ The **Real-Time Flood Risk AI Prediction System** is a full-stack engineering pl
 
 ---
 
-## 🏗️ Architecture Pipeline
+## 🏗️ Architecture Pipeline.
 
 The system follows a decoupled 3-tier architecture utilizing a sequential data fusion pipeline:
 
@@ -33,7 +33,7 @@ The system follows a decoupled 3-tier architecture utilizing a sequential data f
 
 ---
 
-## 📊 Datasets Used
+## 📊 Datasets Used.
 
 The machine learning model is trained on a hybrid data approach to ensure realistic, non-rigid predictions:
 
