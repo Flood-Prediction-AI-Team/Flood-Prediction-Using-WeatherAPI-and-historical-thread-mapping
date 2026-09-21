@@ -11,7 +11,7 @@
 
 ---
 
-## 📖 Project Overview
+## 📖 Project Overview.
 
 Traditional flood prediction models often rely solely on static geographical data, while modern weather APIs provide real-time atmospheric metrics but lack historical context. 
 
@@ -42,7 +42,7 @@ The machine learning model is trained on a hybrid data approach to ensure realis
 
 ---
 
-## 📂 Repository Structure
+## 📂 Repository Structure.
 
 ```text
 .
