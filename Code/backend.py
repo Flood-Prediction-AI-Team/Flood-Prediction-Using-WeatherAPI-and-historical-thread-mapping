@@ -3,6 +3,13 @@ import pandas as pd
 import joblib
 import math
 import requests
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+# Set absolute paths so VS Code doesn't lose the files
+BASE_DIR = Path(__file__).resolve().parent
+load_dotenv(BASE_DIR / ".env")
 
 # ==========================================
 # TIER 3: SERVICES AND DATA
@@ -15,7 +22,6 @@ class LocationQuery:
         self._longitude = None
 
     def geocode_city(self):
-        # Using Nominatim (OpenStreetMap) as a free geocoding API
         try:
             url = f"https://nominatim.openstreetmap.org/search?q={self._city_name}&format=json&limit=1"
             headers = {'User-Agent': 'FloodPredictionApp/1.0'}
@@ -34,11 +40,15 @@ class LocationQuery:
 
 class WeatherAPIService:
     def __init__(self):
-        # TODO: Replace with your real OpenWeatherMap API Key
-        self._api_key = "YOUR_OPENWEATHER_KEY" 
+        # Securely loading your real API key from the .env file
+        self._api_key = os.getenv("WEATHER_API_KEY") 
         self._endpoint_url = "https://api.openweathermap.org/data/2.5/weather"
 
     def fetch_live_weather(self, lat, lon):
+        if not self._api_key:
+            print("WARNING: WEATHER_API_KEY not found in .env file!")
+            return self.execute_mock_fallback()
+            
         try:
             params = {
                 'lat': lat,
@@ -56,8 +66,10 @@ class WeatherAPIService:
                     "humidity_pct": data['main']['humidity'],
                     "wind_speed_ms": data['wind']['speed']
                 }
+            print(f"Weather API Error: {data}")
             return self.execute_mock_fallback()
-        except Exception:
+        except Exception as e:
+            print(f"Weather Request Failed: {e}")
             return self.execute_mock_fallback()
 
     def execute_mock_fallback(self):
@@ -67,14 +79,17 @@ class WeatherAPIService:
 
 class HistoricalDatabase:
     def __init__(self):
-        self._dataset_path = "Merged_dataset/fused_historical_database.csv"
+        # Bulletproof path resolving
+        self._dataset_path = BASE_DIR / "Merged_dataset" / "fused_historical_database.csv"
         try:
             self._historical_data = pd.read_csv(self._dataset_path)
-        except Exception:
+            print(f"Database loaded successfully: {len(self._historical_data)} records.")
+        except Exception as e:
+            print(f"CRITICAL: Could not load historical CSV at {self._dataset_path}. Error: {e}")
             self._historical_data = pd.DataFrame() 
 
     def calculate_haversine(self, lat1, lon1, lat2, lon2):
-        R = 6371.0 # Earth radius in km
+        R = 6371.0 
         lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])
         dlat = lat2 - lat1
         dlon = lon2 - lon1
@@ -88,7 +103,6 @@ class HistoricalDatabase:
         
         distances = []
         for idx, row in self._historical_data.iterrows():
-            # Mapping Centroid_Y (Lat) and Centroid_X (Lon) from your CSV
             dist = self.calculate_haversine(lat, lon, row['Centroid_Y'], row['Centroid_X'])
             distances.append(dist)
             
@@ -102,16 +116,18 @@ class HistoricalDatabase:
 
 class MLPredictor:
     def __init__(self):
-        self._model_weights = "flood_model.pkl"
+        # Bulletproof path resolving
+        self._model_weights = BASE_DIR / "flood_model.pkl"
         self._model = None
         self.load_model()
 
     def load_model(self):
         try:
             self._model = joblib.load(self._model_weights)
+            print("Random Forest Model loaded successfully.")
             return True
         except Exception as e:
-            print(f"Failed to load model: {e}")
+            print(f"CRITICAL: Failed to load model at {self._model_weights}. Error: {e}")
             return False
 
     def predict_risk_level(self, feature_df):
@@ -131,15 +147,12 @@ class DataFusionEngine:
         pass
 
     def orchestrate_pipeline(self, lat, lon):
-        # 1. Fetch APIs
         weather_service = WeatherAPIService()
         live_data = weather_service.fetch_live_weather(lat, lon)
 
-        # 2. Query Database
         db = HistoricalDatabase()
         flood_count, nearest_km = db.get_past_floods_100km(lat, lon)
 
-        # 3. Fuse exact features for ML Model
         feature_df = pd.DataFrame({
             'live_rain_mm': [live_data['live_rain_mm']],
             'humidity_pct': [live_data['humidity_pct']],
@@ -148,7 +161,6 @@ class DataFusionEngine:
             'nearest_flood_km': [nearest_km]
         })
 
-        # 4. Predict
         predictor = MLPredictor()
         risk_level = predictor.predict_risk_level(feature_df)
 
@@ -197,7 +209,6 @@ class PredictionController:
 # ==========================================
 # EXECUTION
 # ==========================================
-
 if __name__ == "__main__":
     app_controller = PredictionController()
-    app_controller.run() 
+    app_controller.run()
