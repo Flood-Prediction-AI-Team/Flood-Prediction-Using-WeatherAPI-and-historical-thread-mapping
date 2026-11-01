@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Initialize Leaflet Map (Centered by default)
-    const map = L.map('map').setView([20.5937, 78.9629], 5); // Default view over India
+    // 1. Initialize Leaflet Map (Centered near Patiala)
+    const map = L.map('map').setView([30.3398, 76.3869], 5); 
 
-    // Load OpenStreetMap tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
@@ -42,20 +41,17 @@ document.addEventListener("DOMContentLoaded", () => {
         searchBtn.disabled = true;
 
         try {
-            // First attempt to call the Python Flask backend
             const response = await fetch(`http://127.0.0.1:5000/predict?city=${encodeURIComponent(city)}`);
             
             if (response.ok) {
                 const data = await response.json();
-                renderResults(data);
+                renderResults(data, city);
             } else {
-                // If API is still 401 or backend is off, use graceful fallback preview
-                console.warn("Backend response was not ok. Triggering preview fallback mode.");
-                triggerFallbackPreview(city);
+                alert("Backend Error: Ensure Flask is running and CORS is enabled.");
             }
         } catch (err) {
-            console.warn("Backend unreachable. Triggering preview fallback mode.", err);
-            triggerFallbackPreview(city);
+            console.error("Fetch failed:", err);
+            alert("Failed to connect to the backend. Is the Flask server running?");
         } finally {
             searchBtn.innerText = "SEARCH";
             searchBtn.disabled = false;
@@ -63,42 +59,52 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // 4. Update UI & Risk Styling
-    function renderResults(data) {
-        tempVal.innerText = data.temperature;
-        humidityVal.innerText = data.humidity;
-        windVal.innerText = data.wind_speed;
-        rainVal.innerText = data.rain;
+    function renderResults(data, cityName) {
+        // Map nested live weather data
+        humidityVal.innerText = `${data.live_weather.humidity_pct}%`;
+        windVal.innerText = `${data.live_weather.wind_speed_ms} m/s`;
+        rainVal.innerText = `${data.live_weather.live_rain_mm} mm`;
+        
+        // Temperature was pruned from the ML model, marking as N/A
+        if (tempVal) tempVal.innerText = "N/A (Pruned)"; 
 
-        floodCountVal.innerText = data.past_floods;
-        severityVal.innerText = data.avg_severity || "Moderate";
-        durationVal.innerText = data.casualties || "0 Recorded";
-        proximityVal.innerText = data.nearest_flood;
+        // Map historical API data
+        floodCountVal.innerText = data.historical_floods_nearby;
+        proximityVal.innerText = `${data.nearest_historical_flood_km} km`;
+        
+        // Severity and Casualties were pruned for generalization
+        if (severityVal) severityVal.innerText = "ML Optimized";
+        if (durationVal) durationVal.innerText = "ML Optimized";
 
-        riskLevelText.innerText = data.risk_level;
+        // Display Prediction
+        const risk = data.risk_level.toUpperCase();
+        riskLevelText.innerText = risk;
 
-        // Apply theme color
-        if (data.risk_level.includes("HIGH")) {
+        // Apply theme color based on Random Forest output
+        if (risk.includes("HIGH")) {
             applyRiskTheme("#dc2626", "#fef2f2", "#fca5a5", "Historical + extreme weather threshold met");
-        } else if (data.risk_level.includes("MEDIUM")) {
+        } else if (risk.includes("MEDIUM")) {
             applyRiskTheme("#d97706", "#fffbeb", "#fcd34d", "Elevated rainfall near historical flood zone");
         } else {
             applyRiskTheme("#16a34a", "#f0fdf4", "#86efac", "Atmospheric metrics within normal safety bounds");
         }
 
-        // Update Map Pin
-        if (data.lat && data.lon) {
-            updateMap(data.lat, data.lon, data.city, data.risk_level);
+        // Update Leaflet Map Pin
+        if (data.latitude && data.longitude) {
+            updateMap(data.latitude, data.longitude, cityName.toUpperCase(), risk);
         }
     }
 
     function applyRiskTheme(textColor, bgColor, borderColor, subtitle) {
-        predCard.style.backgroundColor = bgColor;
-        predCard.style.borderColor = borderColor;
-        predCardTitle.style.color = textColor;
-        predHr.style.borderColor = borderColor;
-        riskLevelText.style.color = textColor;
-        riskSubtitle.style.color = textColor;
-        riskSubtitle.innerText = subtitle;
+        if(predCard) predCard.style.backgroundColor = bgColor;
+        if(predCard) predCard.style.borderColor = borderColor;
+        if(predCardTitle) predCardTitle.style.color = textColor;
+        if(predHr) predHr.style.borderColor = borderColor;
+        if(riskLevelText) riskLevelText.style.color = textColor;
+        if(riskSubtitle) {
+            riskSubtitle.style.color = textColor;
+            riskSubtitle.innerText = subtitle;
+        }
     }
 
     function updateMap(lat, lon, label, risk) {
@@ -111,54 +117,16 @@ document.addEventListener("DOMContentLoaded", () => {
             .bindPopup(`<b>${label}</b><br>Assessed Threat: ${risk}`)
             .openPopup();
 
-        // 50km radius indicator
         const circleColor = risk.includes("HIGH") ? '#ef4444' : risk.includes("MEDIUM") ? '#f59e0b' : '#22c55e';
         floodCircle = L.circle([lat, lon], {
             color: circleColor,
             fillColor: circleColor,
             fillOpacity: 0.15,
-            radius: 50000 // 50 km
+            radius: 50000 // 50 km radius indicator
         }).addTo(map);
     }
 
-    // Temporary Preview Fallback while OpenWeather activates
-    // Temporary Preview Fallback with Real Geocoding
-    async function triggerFallbackPreview(cityName) {
-        let lat = 30.3398; // Default fallback
-        let lon = 76.3869; 
-
-        // Fetch real coordinates using free OpenStreetMap Geocoding
-        try {
-            const geoRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(cityName)}`);
-            const geoData = await geoRes.json();
-            if (geoData && geoData.length > 0) {
-                lat = parseFloat(geoData[0].lat);
-                lon = parseFloat(geoData[0].lon);
-            }
-        } catch (e) {
-            console.warn("Geocoding failed, using default coords.");
-        }
-
-        const isHigh = cityName.toLowerCase().includes("niamey") || cityName.toLowerCase().includes("flood");
-        
-        const mockData = {
-            city: cityName,
-            temperature: isHigh ? "29.2°C" : "24.5°C",
-            humidity: isHigh ? "92%" : "48%",
-            wind_speed: isHigh ? "18.4 m/s" : "4.2 m/s",
-            rain: isHigh ? "94.0 mm" : "0.0 mm",
-            past_floods: isHigh ? 14 : 1,
-            avg_severity: isHigh ? "High" : "Low",
-            casualties: isHigh ? "38 Recorded" : "0 Recorded",
-            nearest_flood: isHigh ? "2.1 km" : "142.8 km",
-            risk_level: isHigh ? "HIGH RISK" : "LOW RISK",
-            lat: lat, 
-            lon: lon
-        };
-        
-        renderResults(mockData);
-    }
-
+    // Event Listeners
     searchBtn.addEventListener("click", handleSearch);
     locationInput.addEventListener("keypress", (e) => {
         if (e.key === "Enter") handleSearch();
