@@ -1,6 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Initialize Leaflet Map (Centered near Patiala)
-    const map = L.map('map').setView([30.3398, 76.3869], 5); 
+    // 1. Initialize Leaflet Map (Centered near Patiala, Zoom Controls moved to top-right)
+    const map = L.map('map', {
+        zoomControl: false // Disable the default top-left buttons
+    }).setView([30.3398, 76.3869], 5); 
+
+    // Add the zoom control to the top-right corner
+    L.control.zoom({
+        position: 'topright'
+    }).addTo(map);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
@@ -95,9 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function applyRiskTheme(className, textColor, subtitle) {
         if(predCard) {
-            // Remove previous color classes
             predCard.classList.remove("risk-high", "risk-medium", "risk-low");
-            // Apply new target class
             predCard.classList.add(className);
         }
         if(riskLevelText) riskLevelText.style.color = textColor;
