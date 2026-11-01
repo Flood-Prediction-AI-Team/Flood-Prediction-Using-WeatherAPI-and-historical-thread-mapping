@@ -191,7 +191,7 @@ class PredictionController:
         return errors.get(code, {"error": "Unknown error"})
 
     def run(self):
-        self._flask_app.run(debug=True, port=5000)
+        self._flask_app.run(debug=True, use_reloader=False, port=5000)
 
 
 # ==========================================
