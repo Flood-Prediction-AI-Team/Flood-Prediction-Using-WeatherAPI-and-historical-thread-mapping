@@ -1,3 +1,4 @@
+from flask_cors import CORS
 from flask import Flask, request, jsonify
 import pandas as pd
 import joblib
@@ -177,6 +178,7 @@ class DataFusionEngine:
 class PredictionController:
     def __init__(self):
         self._flask_app = Flask(__name__)
+        CORS(self._flask_app)
         self._setup_routes()
 
     def _setup_routes(self):
