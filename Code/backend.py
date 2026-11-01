@@ -197,6 +197,7 @@ class PredictionController:
 # ==========================================
 # EXECUTION
 # ==========================================
+
 if __name__ == "__main__":
     app_controller = PredictionController()
-    app_controller.run()
+    app_controller.run() 
