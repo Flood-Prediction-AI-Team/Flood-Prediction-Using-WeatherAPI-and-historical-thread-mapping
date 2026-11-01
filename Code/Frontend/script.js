@@ -24,8 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const proximityVal = document.getElementById("proximityVal");
 
     const predCard = document.getElementById("predCard");
-    const predCardTitle = document.getElementById("predCardTitle");
-    const predHr = document.getElementById("predHr");
     const riskLevelText = document.getElementById("riskLevelText");
     const riskSubtitle = document.getElementById("riskSubtitle");
 
@@ -82,11 +80,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Apply theme color based on Random Forest output
         if (risk.includes("HIGH")) {
-            applyRiskTheme("#dc2626", "#fef2f2", "#fca5a5", "Historical + extreme weather threshold met");
+            applyRiskTheme("risk-high", "#ef4444", "Historical + extreme weather threshold met");
         } else if (risk.includes("MEDIUM")) {
-            applyRiskTheme("#d97706", "#fffbeb", "#fcd34d", "Elevated rainfall near historical flood zone");
+            applyRiskTheme("risk-medium", "#f59e0b", "Elevated rainfall near historical flood zone");
         } else {
-            applyRiskTheme("#16a34a", "#f0fdf4", "#86efac", "Atmospheric metrics within normal safety bounds");
+            applyRiskTheme("risk-low", "#22c55e", "Atmospheric metrics within normal safety bounds");
         }
 
         // Update Leaflet Map Pin
@@ -95,11 +93,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function applyRiskTheme(textColor, bgColor, borderColor, subtitle) {
-        if(predCard) predCard.style.backgroundColor = bgColor;
-        if(predCard) predCard.style.borderColor = borderColor;
-        if(predCardTitle) predCardTitle.style.color = textColor;
-        if(predHr) predHr.style.borderColor = borderColor;
+    function applyRiskTheme(className, textColor, subtitle) {
+        if(predCard) {
+            // Remove previous color classes
+            predCard.classList.remove("risk-high", "risk-medium", "risk-low");
+            // Apply new target class
+            predCard.classList.add(className);
+        }
         if(riskLevelText) riskLevelText.style.color = textColor;
         if(riskSubtitle) {
             riskSubtitle.style.color = textColor;
