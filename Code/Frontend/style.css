@@ -158,12 +158,12 @@ header {
 }
 
 .data-card h2 {
-    font-size: 0.75rem;
+    font-size: 1.0rem;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    color: #94a3b8;
+    color: #f4f5f6;
     margin-bottom: 20px;
-    font-weight: 600;
+    font-weight: 900;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -181,7 +181,7 @@ header {
 .metric-group {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 8px;
 }
 
 .metric {
@@ -199,7 +199,8 @@ header {
 
 .metric .label {
     color: #cbd5e1;
-    font-size: 0.9rem;
+    font-size: 1.0rem;
+    font-weight:500;
 }
 
 .metric .value {
@@ -211,7 +212,7 @@ header {
 .value.muted {
     color: #64748b;
     font-size: 0.85rem;
-    font-weight: 400;
+    font-weight: 900;
 }
 
 /* Prediction Output Area styles */
@@ -221,7 +222,7 @@ header {
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 24px;
+    padding: 20px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
@@ -240,9 +241,13 @@ header {
     top: -50px;
 }
 
+#predCardTitle {
+    font-size: 1.8rem;
+}
+
 #riskLevelText {
-    font-size: 2.2rem;
-    font-weight: 800;
+    font-size: 2.9rem;
+    font-weight: 900;
     letter-spacing: -1px;
     margin-bottom: 8px;
     z-index: 2;
@@ -251,10 +256,10 @@ header {
 }
 
 #riskSubtitle {
-    font-size: 0.95rem;
+    font-size: 1.5rem;
     color: #94a3b8;
     z-index: 2;
-    max-width: 250px;
+    max-width: 350px;
     line-height: 1.4;
 }
 
