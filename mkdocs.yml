@@ -8,10 +8,10 @@ docs_dir: Docs
 
 plugins:
   - search
-  - section-index
 
 theme:
   name: material
+  custom_dir: assets/theme-overrides
   features:
     - navigation.footer
     - header.autohide
@@ -27,8 +27,8 @@ theme:
   palette:
     primary: indigo
     accent: blue
-  logo: assets/tiet-logo.svg
-  favicon: assets/favicon.png
+  logo: https://raw.githubusercontent.com/Flood-Prediction-AI-Team/Flood-Prediction-Using-WeatherAPI-and-historical-thread-mapping/main/assets/tiet-logo.svg
+  favicon: https://raw.githubusercontent.com/Flood-Prediction-AI-Team/Flood-Prediction-Using-WeatherAPI-and-historical-thread-mapping/main/assets/favicon.png
 
 copyright: "Copyright &copy; 2026 Amit Bishnoi, Diksha Garg • UCS503 Software Engineering"
 

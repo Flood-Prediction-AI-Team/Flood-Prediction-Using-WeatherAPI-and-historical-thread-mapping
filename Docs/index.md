@@ -1,4 +1,4 @@
-![TIET Logo](assets/tiet-logo.svg){ .tiet-logo }
+![TIET Logo](https://raw.githubusercontent.com/Flood-Prediction-AI-Team/Flood-Prediction-Using-WeatherAPI-and-historical-thread-mapping/main/assets/tiet-logo.svg){ .tiet-logo }
 
 **UCS503: Software Engineering (Project)**  
 **Thapar Institute of Engineering & Technology, Patiala**
