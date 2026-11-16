@@ -39,7 +39,6 @@ extra:
       name: GitHub Repository for Flood-Risk AI
 
 extra_css:
-  - stylesheets/custom.css
   - https://unpkg.com/katex@0/dist/katex.min.css
 
 extra_javascript:
