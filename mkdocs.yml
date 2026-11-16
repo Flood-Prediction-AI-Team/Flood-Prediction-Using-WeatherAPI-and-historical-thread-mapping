@@ -1,10 +1,14 @@
-site_name: "Flood Prediction System - Weather API & Threat Mapping"
+site_name: "Flood-Risk AI - Real-Time Flood Prediction & Threat Mapping System"
 site_url: https://Flood-Prediction-AI-Team.github.io/Flood-Prediction-Using-WeatherAPI-and-historical-thread-mapping/
 
 repo_url: https://github.com/Flood-Prediction-AI-Team/Flood-Prediction-Using-WeatherAPI-and-historical-thread-mapping
 repo_name: Flood-Prediction-AI-Team/Flood-Prediction-Using-WeatherAPI-and-historical-thread-mapping
 
 docs_dir: Docs
+
+plugins:
+  - search
+  - section-index
 
 theme:
   name: material
@@ -23,32 +27,31 @@ theme:
   palette:
     primary: indigo
     accent: blue
+  logo: assets/tiet-logo.svg
+  favicon: assets/favicon.png
 
-copyright: "Copyright &copy; 2026 Amit Bishnoi, Diksha Garg &bull; UCS503 Software Engineering"
+copyright: "Copyright &copy; 2026 Amit Bishnoi, Diksha Garg • UCS503 Software Engineering"
 
 extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/Flood-Prediction-AI-Team/Flood-Prediction-Using-WeatherAPI-and-historical-thread-mapping
-      name: GitHub Repository
+      name: GitHub Repository for Flood-Risk AI
 
 extra_css:
-  - https://unpkg.com/katex@0/dist/katex.min.css
   - stylesheets/custom.css
+  - https://unpkg.com/katex@0/dist/katex.min.css
 
 extra_javascript:
   - https://unpkg.com/katex@0/dist/katex.min.js
 
 markdown_extensions:
-  - fenced_code
-  - codehilite
-  - pymdownx.superfences
-  - pymdownx.highlight
-  - toc:
-      permalink: true
   - abbr
   - md_in_html
   - attr_list
+  - admonition
+  - fenced_code
+  - codehilite
   - footnotes
   - sane_lists
   - toc:
@@ -73,6 +76,7 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.mark
   - pymdownx.tilde
+  - pymdownx.details
 
 nav:
   - Home: index.md
