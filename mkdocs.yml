@@ -28,7 +28,7 @@ theme:
   palette:
     primary: indigo
     accent: blue
-  logo: https://raw.githubusercontent.com/Flood-Prediction-AI-Team/Flood-Prediction-Using-WeatherAPI-and-historical-thread-mapping/main/assets/tiet-logo.svg
+  logo: https://raw.githubusercontent.com/Flood-Prediction-AI-Team/Flood-Prediction-Using-WeatherAPI-and-historical-thread-mapping/main/assets/tiet-logo-red.png
   favicon: https://raw.githubusercontent.com/Flood-Prediction-AI-Team/Flood-Prediction-Using-WeatherAPI-and-historical-thread-mapping/main/assets/favicon.png
 
 copyright: "Copyright &copy; 2026 Amit Bishnoi, Diksha Garg • UCS503 Software Engineering"
