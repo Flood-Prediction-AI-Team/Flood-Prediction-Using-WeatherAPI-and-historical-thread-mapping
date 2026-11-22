@@ -1,5 +1,5 @@
 <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
-  <img src="https://raw.githubusercontent.com/Flood-Prediction-AI-Team/Flood-Prediction-Using-WeatherAPI-and-historical-thread-mapping/main/assets/tiet-logo.svg" alt="TIET Logo" style="height: 46px; width: auto; margin: 0;">
+  <img src="https://raw.githubusercontent.com/Flood-Prediction-AI-Team/Flood-Prediction-Using-WeatherAPI-and-historical-thread-mapping/main/assets/tiet-logo-red.png" alt="TIET Logo" style="height: 46px; width: auto; margin: 0;">
   <div style="line-height: 1.4;">
     <strong>UCS503: Software Engineering (Project)</strong><br>
     <strong>Thapar Institute of Engineering &amp; Technology, Patiala</strong>
