@@ -70,8 +70,10 @@ document.addEventListener("DOMContentLoaded", () => {
         windVal.innerText = `${data.live_weather.wind_speed_ms} m/s`;
         rainVal.innerText = `${data.live_weather.live_rain_mm} mm`;
         
-        // Temperature was pruned from the ML model, marking as N/A
-        if (tempVal) tempVal.innerText = "N/A (Pruned)"; 
+        // Display live temperature from OpenWeather API (display-only, not passed to ML model)
+        if (tempVal) {
+            tempVal.innerText = data.live_weather.temp_c !== undefined ? `${data.live_weather.temp_c} °C` : "--";
+        }
 
         // Map historical API data
         floodCountVal.innerText = data.historical_floods_nearby;

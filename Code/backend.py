@@ -63,6 +63,7 @@ class WeatherAPIService:
             if response.status_code == 200:
                 rain_1h = data.get('rain', {}).get('1h', 0.0)
                 return {
+                    "temp_c": round(data['main']['temp'], 1),
                     "live_rain_mm": rain_1h,
                     "humidity_pct": data['main']['humidity'],
                     "wind_speed_ms": data['wind']['speed']
@@ -75,7 +76,7 @@ class WeatherAPIService:
 
     def execute_mock_fallback(self):
         print("API failed. Triggering fallback data (0..1 Multiplicity).")
-        return {"live_rain_mm": 0.0, "humidity_pct": 50.0, "wind_speed_ms": 3.0}
+        return {"temp_c": 25.0, "live_rain_mm": 0.0, "humidity_pct": 50.0, "wind_speed_ms": 3.0}
 
 
 class HistoricalDatabase:
