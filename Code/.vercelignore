@@ -1,0 +1,10 @@
+.env
+Frontend
+train_model.ipynb
+Merged_dataset/normal_dataset
+Merged_dataset/dataset_fusion.ipynb
+Merged_dataset/dfo_masterlist.csv
+Merged_dataset/fused_historical_database_balanced.csv
+Merged_dataset/historical_dataset.csv
+__pycache__
+*.pyc
