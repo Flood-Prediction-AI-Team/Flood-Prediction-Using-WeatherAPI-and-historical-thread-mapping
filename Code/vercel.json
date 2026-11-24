@@ -4,24 +4,12 @@
     {
       "src": "backend.py",
       "use": "@vercel/python"
-    },
-    {
-      "src": "public/**",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/predict",
-      "dest": "backend.py"
-    },
-    {
-      "src": "/",
-      "dest": "/public/index.html"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/public/$1"
+      "dest": "backend.py"
     }
   ]
 }

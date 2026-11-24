@@ -1,5 +1,5 @@
 from flask_cors import CORS
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 import pandas as pd
 import joblib
 import math
@@ -174,11 +174,19 @@ class DataFusionEngine:
 
 class PredictionController:
     def __init__(self):
-        self._flask_app = Flask(__name__)
+        self._flask_app = Flask(
+            __name__,
+            static_folder=str(BASE_DIR / "public"),
+            static_url_path=""
+        )
         CORS(self._flask_app)
         self._setup_routes()
 
     def _setup_routes(self):
+        @self._flask_app.route("/", methods=['GET'])
+        def index_route():
+            return send_from_directory(BASE_DIR / "public", "index.html")
+
         @self._flask_app.route("/predict", methods=['GET'])
         def predict_route():
             city = request.args.get('city')
