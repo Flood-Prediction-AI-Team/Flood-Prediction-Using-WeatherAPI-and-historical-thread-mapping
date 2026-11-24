@@ -1,0 +1,310 @@
+/* ==========================================================================
+   OPTION 3: MODERN GLASSMORPHISM (style.css)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden; 
+}
+
+/* Fullscreen Map Base */
+#map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1; 
+}
+
+/* Base Glass Definition */
+.glass {
+    background: rgba(15, 23, 42, 0.65); 
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    color: #f8fafc;
+}
+
+/* Overlay UI Core Container */
+.overlay-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10; 
+    pointer-events: none; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px;
+}
+
+.overlay-container > *, 
+.glass, 
+.leaflet-control-container {
+    pointer-events: auto;
+}
+
+/* Header & Search Group */
+header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 650px;
+}
+
+/* Solid Top Navbar */
+.brand-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    background: #1e293b; 
+    padding: 16px 32px;
+    border-radius: 0; 
+    border: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.brand-section h1 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ffffff; 
+    text-shadow: none;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+}
+
+/* Push search box below the navbar */
+.search-box {
+    margin-top: 65px; 
+    display: flex;
+    padding: 6px;
+    gap: 8px;
+}
+
+.search-box input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 14px 20px;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.search-box input::placeholder {
+    color: #94a3b8;
+}
+
+.search-box input:focus {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.05);
+}
+
+.search-box button {
+    background: #ef4444; 
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 0 28px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);
+}
+
+.search-box button:hover {
+    background: #dc2626;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
+}
+
+.search-box button:active {
+    transform: translateY(1px);
+}
+
+/* Dashboard Analytics Layout - Float bottom */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+.data-card {
+    padding: 24px;
+    transition: transform 0.3s ease;
+}
+
+.data-card h2 {
+    font-size: 1.0rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #f4f5f6;
+    margin-bottom: 20px;
+    font-weight: 900;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.data-card h2::after {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+}
+
+.metric-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.metric {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 8px;
+}
+
+.metric:last-child {
+    border: none;
+    padding-bottom: 0;
+}
+
+.metric .label {
+    color: #cbd5e1;
+    font-size: 1.0rem;
+    font-weight:500;
+}
+
+.metric .value {
+    font-weight: 600;
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+.value.muted {
+    color: #64748b;
+    font-size: 0.85rem;
+    font-weight: 900;
+}
+
+/* Prediction Output Area styles */
+.prediction-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+.prediction-card::before {
+    content: '';
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--glow-color, rgba(148, 163, 184, 0.2)) 0%, transparent 70%);
+    filter: blur(20px);
+    z-index: 1;
+    top: -50px;
+}
+
+#predCardTitle {
+    font-size: 1.8rem;
+}
+
+#riskLevelText {
+    font-size: 2.9rem;
+    font-weight: 900;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+    z-index: 2;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    animation: pulse 2.5s infinite;
+}
+
+#riskSubtitle {
+    font-size: 1.5rem;
+    color: #94a3b8;
+    z-index: 2;
+    max-width: 350px;
+    line-height: 1.4;
+}
+
+/* Color state changes */
+.risk-low {
+    --glow-color: rgba(34, 197, 94, 0.25);
+    border-color: rgba(34, 197, 94, 0.2) !important;
+}
+.risk-medium {
+    --glow-color: rgba(245, 158, 11, 0.25);
+    border-color: rgba(245, 158, 11, 0.2) !important;
+}
+.risk-high {
+    --glow-color: rgba(239, 68, 68, 0.25);
+    border-color: rgba(239, 68, 68, 0.2) !important;
+}
+
+@media(max-width: 768px) {
+    .overlay-container {
+        overflow-y: auto;
+        justify-content: flex-start;
+        gap: 24px;
+        padding-top: 80px; /* Leave room for top bar */
+    }
+    .search-box {
+        margin-top: 0;
+    }
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.leaflet-popup-content-wrapper {
+    background: rgba(15, 23, 42, 0.9) !important;
+    backdrop-filter: blur(8px);
+    color: #f8fafc !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.leaflet-popup-tip {
+    background: rgba(15, 23, 42, 0.9) !important;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.9; transform: scale(0.98); }
+}
