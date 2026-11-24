@@ -1,5 +1,5 @@
 from flask_cors import CORS
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, render_template
 import pandas as pd
 import joblib
 import math
@@ -176,6 +176,7 @@ class PredictionController:
     def __init__(self):
         self._flask_app = Flask(
             __name__,
+            template_folder=str(BASE_DIR / "templates"),
             static_folder=str(BASE_DIR / "public"),
             static_url_path=""
         )
@@ -185,7 +186,7 @@ class PredictionController:
     def _setup_routes(self):
         @self._flask_app.route("/", methods=['GET'])
         def index_route():
-            return send_from_directory(BASE_DIR / "public", "index.html")
+            return render_template("index.html")
 
         @self._flask_app.route("/predict", methods=['GET'])
         def predict_route():
