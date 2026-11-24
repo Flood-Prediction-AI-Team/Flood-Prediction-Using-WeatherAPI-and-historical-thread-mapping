@@ -23,21 +23,43 @@ class LocationQuery:
         self._longitude = None
 
     def geocode_city(self):
+        api_key = os.getenv("WEATHER_API_KEY")
+        # 1. Primary: OpenWeatherMap Geocoding API (reliable on Vercel cloud servers)
+        if api_key:
+            try:
+                owm_url = "https://api.openweathermap.org/geo/1.0/direct"
+                res = requests.get(
+                    owm_url,
+                    params={'q': self._city_name, 'limit': 1, 'appid': api_key},
+                    timeout=10
+                ).json()
+                if isinstance(res, list) and len(res) > 0:
+                    self._latitude = float(res[0]['lat'])
+                    self._longitude = float(res[0]['lon'])
+                    return True
+            except Exception as e:
+                print(f"OpenWeather geocoding failed: {e}")
+
+        # 2. Fallback: OpenStreetMap Nominatim
         try:
-            url = f"https://nominatim.openstreetmap.org/search?q={self._city_name}&format=json&limit=1"
-            headers = {'User-Agent': 'FloodPredictionApp/1.0'}
-            response = requests.get(url, headers=headers, timeout=10).json()
-            if response:
+            url = "https://nominatim.openstreetmap.org/search"
+            headers = {'User-Agent': 'FloodRiskAI-StudentProject/1.0 (contact@floodrisk.app)'}
+            response = requests.get(
+                url,
+                params={'q': self._city_name, 'format': 'json', 'limit': 1},
+                headers=headers,
+                timeout=10
+            ).json()
+            if isinstance(response, list) and len(response) > 0:
                 self._latitude = float(response[0]['lat'])
                 self._longitude = float(response[0]['lon'])
                 return True
         except Exception as e:
-            print(f"Geocoding failed: {e}")
+            print(f"Nominatim geocoding failed: {e}")
         return False
 
     def get_coordinates(self):
         return (self._latitude, self._longitude)
-
 
 class WeatherAPIService:
     def __init__(self):
