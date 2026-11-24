@@ -177,7 +177,7 @@ class PredictionController:
         self._flask_app = Flask(
             __name__,
             template_folder=str(BASE_DIR / "templates"),
-            static_folder=str(BASE_DIR / "public"),
+            static_folder=str(BASE_DIR / "static"),
             static_url_path=""
         )
         CORS(self._flask_app)
